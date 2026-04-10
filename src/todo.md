@@ -1,0 +1,9 @@
+-- connect to DB
+-- schema
+-- model
+-- user interface
+-- user type
+-- DTO
+-- error exception
+-- abstract design pattern
+-- factory design pattern
