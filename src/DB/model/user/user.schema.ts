@@ -27,8 +27,6 @@ export const userSchema = new Schema<IUser>(
     },
     password: {
       type: String,
-      minLength: 3,
-      maxLength: 20,
       required: function () {
         if (this.userAgent == USER_AGENT.google) return false;
         return true;
