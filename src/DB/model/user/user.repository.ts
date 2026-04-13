@@ -1,7 +1,7 @@
 import { QueryFilter } from "mongoose";
 import { IUser } from "../../../utils/common/interface";
-import { AbstractRepository } from "../../Abstract.repository";
 import { User } from "./user.model";
+import { AbstractRepository } from "../../abstract.repository";
 
 export class UserRepository extends AbstractRepository<IUser> {
   constructor() {

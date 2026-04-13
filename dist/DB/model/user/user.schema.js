@@ -27,8 +27,6 @@ exports.userSchema = new mongoose_1.Schema({
     },
     password: {
         type: String,
-        minLength: 3,
-        maxLength: 20,
         required: function () {
             if (this.userAgent == enum_1.USER_AGENT.google)
                 return false;
