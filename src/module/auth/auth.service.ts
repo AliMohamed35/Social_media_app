@@ -1,9 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import { UserRepository } from "../../DB/model/user/user.repository";
-import { BadRequestException, ConflictException } from "../../utils/error";
+import { UserRepository } from "../../DB";
+import { ConflictException } from "../../utils";
 import { RegisterDTO } from "./auth.dto";
-import { AuthFactoryService } from "./factory/auth.factory.service";
-import * as authValidation from "./auth.validation";
+import { AuthFactoryService } from "./factory";
 
 class AuthService {
   private userRepository: UserRepository = new UserRepository();
@@ -14,18 +13,6 @@ class AuthService {
   register = async (req: Request, res: Response, next: NextFunction) => {
     // get data from request
     const registerDTO: RegisterDTO = req.body;
-
-    // validate schema against body
-    const result = authValidation.registerSchema.safeParse(registerDTO);
-
-    if (result.success == false) {
-      let errorMessages = result.error.issues.map((issue) => ({
-        path: issue.path[0] as string,
-        message: issue.message,
-      }));
-
-      throw new BadRequestException("Validation error!", errorMessages);
-    }
 
     // check user existence
     const userExist = await this.userRepository.exist({
