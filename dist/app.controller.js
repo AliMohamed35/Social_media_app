@@ -7,6 +7,8 @@ exports.bootstrap = bootstrap;
 const auth_controller_1 = __importDefault(require("./module/auth/auth.controller"));
 const connection_1 = require("./DB/connection");
 function bootstrap(app, express) {
+    // operation buffering
+    (0, connection_1.connectDB)();
     // parsing body
     app.use(express.json());
     app.use("/auth", auth_controller_1.default);
@@ -14,5 +16,9 @@ function bootstrap(app, express) {
     app.use("/{*dummy}", (req, res, next) => {
         return res.status(201).json({ message: "Invalid Router", success: false });
     });
-    (0, connection_1.connectDB)();
+    app.use((error, req, res, next) => {
+        return res
+            .status(error.statusCode)
+            .json({ message: error.message, success: false, errorDetails: error.errorDetails });
+    });
 }
