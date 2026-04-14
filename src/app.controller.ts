@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, type Express } from "express";
-import authRouter from "./module/auth/auth.controller";
-import { connectDB } from "./DB/connection";
-import { AppError } from "./utils/error";
+import * as appRouters from './module'
+import { connectDB } from "./DB";
+import { AppError } from "./utils";
 
 export function bootstrap(app: Express, express: any) {
   // operation buffering
@@ -10,7 +10,8 @@ export function bootstrap(app: Express, express: any) {
   // parsing body
   app.use(express.json());
 
-  app.use("/auth", authRouter);
+  app.use("/auth", appRouters.authRouter);
+  app.use("/user", appRouters.userRouter);
 
   // Fallback router for not found routes
   app.use("/{*dummy}", (req: Request, res: Response, next: NextFunction) => {
