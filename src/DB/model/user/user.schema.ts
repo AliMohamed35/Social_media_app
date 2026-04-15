@@ -60,11 +60,11 @@ userSchema
     this.lastName = lname as string;
   });
 
-
 userSchema.pre("save", async function () {
-  await sendMail({
-    to: this.email,
-    subject: "Confirm your email!",
-    html: `<h1>Your OTP is: ${this.otp}</h1>`,
-  });
+  if (this.userAgent != USER_AGENT.google && this.isNew == true)
+    await sendMail({
+      to: this.email,
+      subject: "Confirm your email!",
+      html: `<h1>Your OTP is: ${this.otp}</h1>`,
+    });
 });

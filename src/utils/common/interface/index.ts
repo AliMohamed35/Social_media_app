@@ -13,7 +13,7 @@ phoneNumber?: string,
 role: SYS_ROLE,
 gender: GENDER,
 userAgent: USER_AGENT
-otp?: string,
-otpExpiryAt?: Date,
+otp?: string | null,
+otpExpiryAt: Date | null,
 isVerified: boolean
 }

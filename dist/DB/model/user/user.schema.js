@@ -58,9 +58,10 @@ exports.userSchema
     this.lastName = lname;
 });
 exports.userSchema.pre("save", async function () {
-    await (0, email_1.sendMail)({
-        to: this.email,
-        subject: "Confirm your email!",
-        html: `<h1>Your OTP is: ${this.otp}</h1>`,
-    });
+    if (this.userAgent != enum_1.USER_AGENT.google && this.isNew == true)
+        await (0, email_1.sendMail)({
+            to: this.email,
+            subject: "Confirm your email!",
+            html: `<h1>Your OTP is: ${this.otp}</h1>`,
+        });
 });

@@ -1,9 +1,8 @@
-import type { NextFunction, Request, Response } from "express";
 import { UserRepository } from "../../DB";
 import { ConflictException } from "../../utils";
-import { RegisterDTO } from "./auth.dto";
+import { RegisterDTO, VerifyOTP } from "./auth.dto";
 import { AuthFactoryService } from "./factory";
-import { sendMail } from "../../utils/email";
+import { authProvider } from "./providers/auth.provider";
 
 class AuthService {
   private userRepository: UserRepository = new UserRepository();
@@ -11,14 +10,9 @@ class AuthService {
 
   constructor() {}
 
-  register = async (req: Request, res: Response, next: NextFunction) => {
-    // get data from request
-    const registerDTO: RegisterDTO = req.body;
-
+  register = async (registerDTO: RegisterDTO) => {
     // check user existence
-    const userExist = await this.userRepository.exist({
-      email: registerDTO.email,
-    });
+    const userExist = await authProvider.checkExitence(registerDTO);
     if (userExist) throw new ConflictException("User already exist");
 
     // prepare data
@@ -27,12 +21,17 @@ class AuthService {
     // create user
     const createdUser = await this.userRepository.create(user);
 
-    // send response
-    return res.status(201).json({
-      message: "User created successfully",
-      success: true,
-      data: createdUser,
-    });
+    return createdUser;
+  };
+
+  verifyOTP = async (verifyOTP: VerifyOTP) => {
+    // check user existence
+    await authProvider.checkOTP(verifyOTP);
+
+    return await this.userRepository.update(
+      { email: verifyOTP.email },
+      { isVerified: true, $unset: { otp: "", otpExpiryAt: "" } },
+    );
   };
 }
 

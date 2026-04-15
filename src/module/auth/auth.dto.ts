@@ -8,4 +8,9 @@ export interface RegisterDTO{
   gender: GENDER;
 }
 
+export interface VerifyOTP{
+  email: string;
+  otp: string
+}
+
 export interface UpdateUserDTO extends Partial<RegisterDTO> {}
