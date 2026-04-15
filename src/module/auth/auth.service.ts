@@ -3,6 +3,7 @@ import { UserRepository } from "../../DB";
 import { ConflictException } from "../../utils";
 import { RegisterDTO } from "./auth.dto";
 import { AuthFactoryService } from "./factory";
+import { sendMail } from "../../utils/email";
 
 class AuthService {
   private userRepository: UserRepository = new UserRepository();
