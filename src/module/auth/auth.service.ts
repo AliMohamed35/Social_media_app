@@ -21,7 +21,7 @@ class AuthService {
     if (userExist) throw new ConflictException("User already exist");
 
     // prepare data
-    const user = this.authFactoryService.register(registerDTO); // map to entity before saving to DB
+    const user = await this.authFactoryService.register(registerDTO); // map to entity before saving to DB
 
     // create user
     const createdUser = await this.userRepository.create(user);

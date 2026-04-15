@@ -40,6 +40,7 @@ exports.userSchema = new mongoose_1.Schema({
     userAgent: { type: String, enum: enum_1.USER_AGENT, default: enum_1.USER_AGENT.local },
     otp: { type: String },
     otpExpiryAt: { type: Date },
+    isVerified: { type: Boolean, default: false }
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
