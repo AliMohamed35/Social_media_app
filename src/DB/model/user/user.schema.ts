@@ -39,6 +39,7 @@ export const userSchema = new Schema<IUser>(
     userAgent: { type: String, enum: USER_AGENT, default: USER_AGENT.local },
     otp: { type: String },
     otpExpiryAt: { type: Date },
+    isVerified: {type: Boolean, default: false}
   },
   {
     timestamps: true,
