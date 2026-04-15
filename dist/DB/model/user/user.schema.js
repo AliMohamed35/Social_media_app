@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userSchema = void 0;
 const mongoose_1 = require("mongoose");
 const enum_1 = require("../../../utils/common/enum");
+const email_1 = require("../../../utils/email");
 exports.userSchema = new mongoose_1.Schema({
     firstName: {
         type: String,
@@ -40,7 +41,7 @@ exports.userSchema = new mongoose_1.Schema({
     userAgent: { type: String, enum: enum_1.USER_AGENT, default: enum_1.USER_AGENT.local },
     otp: { type: String },
     otpExpiryAt: { type: Date },
-    isVerified: { type: Boolean, default: false }
+    isVerified: { type: Boolean, default: false },
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
@@ -55,4 +56,11 @@ exports.userSchema
     const [fname, lname] = value.split(" ");
     this.firstName = fname;
     this.lastName = lname;
+});
+exports.userSchema.pre("save", async function () {
+    await (0, email_1.sendMail)({
+        to: this.email,
+        subject: "Confirm your email!",
+        html: `<h1>Your OTP is: ${this.otp}</h1>`,
+    });
 });

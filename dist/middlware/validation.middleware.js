@@ -14,6 +14,7 @@ const isValid = (schema) => {
             }));
             throw new utils_1.BadRequestException("Validation error!", errorMessages);
         }
+        next();
     };
 };
 exports.isValid = isValid;

@@ -18,10 +18,11 @@ export function bootstrap(app: Express, express: any) {
     return res.status(201).json({ message: "Invalid Router", success: false });
   });
 
+  // global error handler
   app.use(
     (error: AppError, req: Request, res: Response, next: NextFunction) => {
       return res
-        .status(error.statusCode)
+        .status(error.statusCode ?? 500)
         .json({ message: error.message, success: false, errorDetails: error.errorDetails });
     },
   );

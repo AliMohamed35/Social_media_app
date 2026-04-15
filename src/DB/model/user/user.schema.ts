@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 import { IUser } from "../../../utils/common/interface";
 import { GENDER, SYS_ROLE, USER_AGENT } from "../../../utils/common/enum";
+import { sendMail } from "../../../utils/email";
 
 export const userSchema = new Schema<IUser>(
   {
@@ -39,7 +40,7 @@ export const userSchema = new Schema<IUser>(
     userAgent: { type: String, enum: USER_AGENT, default: USER_AGENT.local },
     otp: { type: String },
     otpExpiryAt: { type: Date },
-    isVerified: {type: Boolean, default: false}
+    isVerified: { type: Boolean, default: false },
   },
   {
     timestamps: true,
@@ -58,3 +59,12 @@ userSchema
     this.firstName = fname as string;
     this.lastName = lname as string;
   });
+
+
+userSchema.pre("save", async function () {
+  await sendMail({
+    to: this.email,
+    subject: "Confirm your email!",
+    html: `<h1>Your OTP is: ${this.otp}</h1>`,
+  });
+});
