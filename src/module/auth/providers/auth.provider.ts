@@ -1,6 +1,6 @@
 import { UserRepository } from "../../../DB";
 import { BadRequestException, NotFoundException } from "../../../utils";
-import { RegisterDTO, VerifyOTP } from "../auth.dto";
+import { LoginDTO, RegisterDTO, VerifyOTP } from "../auth.dto";
 
 export const authProvider = {
   async checkOTP(verifyOTP: VerifyOTP) {
@@ -28,11 +28,11 @@ export const authProvider = {
     }
   },
 
-  async checkExitence(registerDTO: RegisterDTO) {
+  async checkExitence(userData: any) {
     const userRepository = new UserRepository();
 
     return await userRepository.exist({
-      email: registerDTO.email,
+      email: userData.email,
     });
   },
 };

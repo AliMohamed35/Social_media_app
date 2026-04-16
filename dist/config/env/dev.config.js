@@ -8,4 +8,5 @@ exports.devConfig = {
     DB_URL: process.env.DB_URL,
     EMAIL: process.env.EMAIL,
     PASSWORD: process.env.PASSWORD,
+    JWT_SECRET: process.env.JWT_SECRET
 };

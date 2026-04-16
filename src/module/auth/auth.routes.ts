@@ -1,7 +1,8 @@
 import { Router } from "express";
-import authController from "./auth.controller";
 import { isValid } from "../../middlware";
+import authController from "./auth.controller";
 import * as authValidation from "./auth.validation";
+import { isAuthenticated } from "../../middlware/auth.middleware";
 
 const router: Router = Router();
 router.post(
@@ -10,6 +11,12 @@ router.post(
   authController.register,
 );
 
-router.post("/verify", authController.verifyOTP)
+router.post("/verify", authController.verifyOTP);
+
+router.post(
+  "/login",
+  isValid(authValidation.loginSchema),
+  authController.login,
+);
 
 export default router;

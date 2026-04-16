@@ -23,10 +23,10 @@ exports.authProvider = {
             throw new utils_1.BadRequestException("Expired OTP!");
         }
     },
-    async checkExitence(registerDTO) {
+    async checkExitence(userData) {
         const userRepository = new DB_1.UserRepository();
         return await userRepository.exist({
-            email: registerDTO.email,
+            email: userData.email,
         });
     },
 };

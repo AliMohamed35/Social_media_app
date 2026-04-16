@@ -13,4 +13,9 @@ export interface VerifyOTP{
   otp: string
 }
 
+export interface LoginDTO{
+  email: string;
+  password: string
+}
+
 export interface UpdateUserDTO extends Partial<RegisterDTO> {}

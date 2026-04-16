@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.USER_AGENT = exports.GENDER = exports.SYS_ROLE = void 0;
+exports.ApiResponseStatus = exports.USER_AGENT = exports.GENDER = exports.SYS_ROLE = void 0;
 var SYS_ROLE;
 (function (SYS_ROLE) {
     SYS_ROLE["user"] = "user";
@@ -17,3 +17,12 @@ var USER_AGENT;
     USER_AGENT["local"] = "local";
     USER_AGENT["google"] = "google";
 })(USER_AGENT || (exports.USER_AGENT = USER_AGENT = {}));
+var ApiResponseStatus;
+(function (ApiResponseStatus) {
+    ApiResponseStatus["Success"] = "Success";
+    ApiResponseStatus["Failure"] = "Failure";
+    ApiResponseStatus["BadRequest"] = "Bad Request";
+    ApiResponseStatus["Unauthorized"] = "Unauthorized";
+    ApiResponseStatus["NotFound"] = "Not Found";
+    ApiResponseStatus["Conflict"] = "Conflict";
+})(ApiResponseStatus || (exports.ApiResponseStatus = ApiResponseStatus = {}));
