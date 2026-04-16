@@ -39,6 +39,7 @@ exports.userSchema = new mongoose_1.Schema({
     role: { type: String, enum: enum_1.SYS_ROLE, default: enum_1.SYS_ROLE.user },
     gender: { type: String, enum: enum_1.GENDER },
     userAgent: { type: String, enum: enum_1.USER_AGENT, default: enum_1.USER_AGENT.local },
+    isActive: { type: Boolean, default: false },
     otp: { type: String },
     otpExpiryAt: { type: Date },
     isVerified: { type: Boolean, default: false },

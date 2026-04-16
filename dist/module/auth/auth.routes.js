@@ -37,10 +37,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const auth_controller_1 = __importDefault(require("./auth.controller"));
 const middlware_1 = require("../../middlware");
+const auth_controller_1 = __importDefault(require("./auth.controller"));
 const authValidation = __importStar(require("./auth.validation"));
 const router = (0, express_1.Router)();
 router.post("/register", (0, middlware_1.isValid)(authValidation.registerSchema), auth_controller_1.default.register);
 router.post("/verify", auth_controller_1.default.verifyOTP);
+router.post("/login", (0, middlware_1.isValid)(authValidation.loginSchema), auth_controller_1.default.login);
 exports.default = router;

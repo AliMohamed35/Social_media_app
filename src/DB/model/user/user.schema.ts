@@ -38,6 +38,7 @@ export const userSchema = new Schema<IUser>(
     role: { type: String, enum: SYS_ROLE, default: SYS_ROLE.user },
     gender: { type: String, enum: GENDER },
     userAgent: { type: String, enum: USER_AGENT, default: USER_AGENT.local },
+    isActive: {type: Boolean, default: false},
     otp: { type: String },
     otpExpiryAt: { type: Date },
     isVerified: { type: Boolean, default: false },

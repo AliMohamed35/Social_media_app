@@ -31,3 +31,9 @@ export class BadRequestException extends AppError {
     super(message, 400, errorDetails);
   }
 }
+
+export class VerificationFailedException extends AppError {
+  constructor(message: string, errorDetails?: Record<string, string>[]) {
+    super(message, 400, errorDetails);
+  }
+}
