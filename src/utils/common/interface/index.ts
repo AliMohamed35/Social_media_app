@@ -1,9 +1,6 @@
 import { JwtPayload } from "jsonwebtoken";
-import { USER_AGENT } from "../enum";
-import { GENDER } from "../enum";
-import { SYS_ROLE } from "../enum";
-import { Request } from "express";
 import { ObjectId } from "mongoose";
+import { GENDER, SYS_ROLE, USER_AGENT } from "../enum";
 
 export interface IUser {
   firstName: string;
